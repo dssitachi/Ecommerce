@@ -8,7 +8,7 @@ const Header = () => {
             <Navbar bg="light" expand="lg" collapseOnSelect>
                 <Container>
                     <LinkContainer to="/">
-                        <Navbar.Brand >Proshop</Navbar.Brand>
+                        <Navbar.Brand >PROSHOP</Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
