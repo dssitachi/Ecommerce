@@ -1,10 +1,23 @@
-import { useContext } from "react";
-import { ProductContext } from "../contexts/ProductContext";
 import Product from "./Product";
-
+import useSWR from 'swr';
+import Loader from "./Loader";
+import PageNotFound from "../pages/PageNotFound";
+import fetcher from '../shared/fetcher';
 
 function ProductContainer() {
-    const products = useContext(ProductContext)
+
+    const { data, error, isLoading } = useSWR(`http://localhost:1337/api/products`, fetcher);
+
+    if (error) return <PageNotFound />;
+    if (isLoading) return <Loader />;
+
+    var products = data.data.map(function flatten(product) {
+        return {
+            id: product.id,
+            ...product.attributes
+        }
+    })
+    // const products = useContext(ProductContext)
     return (
         <div className="bg-[#f3f2eb]">
             <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">

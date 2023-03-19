@@ -1,51 +1,39 @@
-import { Link } from "react-router-dom";
-import { IoMdAdd, IoMdClose, IoMdRemove } from "react-icons/io";
-import { CartContext } from "../contexts/CartContext";
-import { useContext } from "react";
-import { FiTrash2 } from "react-icons/fi";
+function CartItem({ product }) {
 
-function CartItem({ item }) {
-    var { id, name, image, price, amount } = item
-    const { addToCart, removeFromCart} = useContext(CartContext)
-    
     return (
-        <div className="flex gap-x-4 py-2 lg:px-6 border-b border-gray-200 w-full">
-            <div className="w-full min-h-[150px] flex items-center gap-x-2">
-                <div>
-                    <Link to={`product/${id}`}>
-                        <img className="max-w-[80px]" src={image} alt="some-img"></img>
-                    </Link>
-                </div>
+        <li className="flex py-6">
+            <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                <img
+                    src={product.imageSrc}
+                    alt={product.imageAlt}
+                    className="h-full w-full object-cover object-center"
+                />
+            </div>
 
-                <div className="w-full flex flex-col">
-                    <div className="flex justify-between mb-2">
-                        <Link to={`product/${id}`} className="text-sm uppercase font-medium max-w-[240px] text-primary hover:underline">
-                            {name}
-                        </Link>
-                        <div className="text-xl cursor-pointer"
-                            onClick={() => { removeFromCart(id)}}
-                        >
-                            <IoMdClose className="text-gray-500 hover:text-red-500 transition" />
-                        </div>
+            <div className="ml-4 flex flex-1 flex-col">
+                <div>
+                    <div className="flex justify-between text-base font-medium text-gray-900">
+                        <h3>
+                            <a href={product.href}>{product.name}</a>
+                        </h3>
+                        <p className="ml-4">{product.price}</p>
                     </div>
-                    <div className="flex gap-x-2 h-[36px] text-sm ">
-                        <div className="flex flex-1 max-w-[100px] items-center h-full text-primary font-medium">
-                            <div className="flex h-full flex-1 justify-center items-center cursor-pointer border"
-                                
-                            > <IoMdRemove /> </div>
-                            <div className="flex h-full justify-center items-center px-2"> { amount } </div>
-                            <div className="flex h-full flex-1 justify-center items-center cursor-pointer border"> <IoMdAdd /> </div>
-                        </div>
-                        <div className="flex flex-1 justify-around items-center text-primary font-light">
-                            ${price}
-                        </div>
-                        <div className="flex flex-1 justify-end items-center text-primary font-medium">
-                            ${`${ parseFloat(price * amount).toFixed(2) }`}
-                        </div>
+                    <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+                </div>
+                <div className="flex flex-1 items-end justify-between text-sm">
+                    <p className="text-gray-500">Qty {product.quantity}</p>
+
+                    <div className="flex">
+                        <button
+                            type="button"
+                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                        >
+                            Remove
+                        </button>
                     </div>
                 </div>
             </div>
-        </div>
+        </li>
     )
 }
 
