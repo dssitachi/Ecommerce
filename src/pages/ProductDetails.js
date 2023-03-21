@@ -18,7 +18,7 @@ function ProductDetails() {
     const productData = { ...data.data.attributes, id: data.data.id }
 
     function handleClick() {
-        addToCart(productData, productData.id)
+        addToCart(productData, 1);
     }
 
     return (

@@ -6,15 +6,15 @@ function CartProvider({ children }) {
 
     const [cart, setCart] = useState([]);
 
-    function addToCart(product, id) {
-        var newItem = { ...product, amount: 1 }
-        var cartItem = cart.find(function findProduct(item) {
-            return item.id === id
+    function addToCart(product, qty) {
+        var newItem = { ...product, quantity: qty }
+        var itemIndex = cart.findIndex(function findProduct(item) {
+            return item.id === product.id
         })
-        if (cartItem) {
-            var newCart = [...cart].map((item) => {
-                if (item.id === id) {
-                    return { ...item, amount: cartItem.amount + 1 }
+        if (itemIndex !== -1) {
+            var newCart = [...cart].map((item, index) => {
+                if (index === itemIndex) {
+                    return { ...item, quantity: qty }
                 }
                 return item;
             })
@@ -29,12 +29,8 @@ function CartProvider({ children }) {
         setCart(newCart);
     }
 
-    function clearCart() {
-        setCart([]);
-    }
-
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
             {children}
         </CartContext.Provider>
     )
