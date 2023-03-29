@@ -22,7 +22,7 @@ function ProductDetails() {
     }
 
     return (
-        <div className="bg-gray-100 min-h-screen flex justify-center items-center">
+        <div className="bg-[#f3f2eb] min-h-screen flex justify-center items-center">
             <div className="container mx-auto my-8 px-4 sm:px-6 lg:px-8">
                 <div className="md:flex md:items-start md:justify-between">
                     <div className="mb-8 md:mb-0 md:w-1/2">
@@ -35,8 +35,8 @@ function ProductDetails() {
                             <span className="text-gray-600 mr-2">Price:</span>
                             <span className="text-lg font-bold">${productData.price}</span>
                         </div>
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleClick}>
-                            Add to Cart
+                        <button className="border-[#A4907C] border-2 text-[#A4907C] hover:bg-[#A4907C] hover:text-white font-bold py-2 px-4 rounded" onClick={handleClick}>
+                            ADD TO CART
                         </button>
                     </div>
                 </div>

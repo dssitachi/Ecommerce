@@ -1,18 +1,48 @@
-import { Fragment} from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 import { SideBarContext } from '../contexts/SidebarContext';
 import { useContext } from 'react';
 import CartItem from './CartItem';
 import { CartContext } from '../contexts/CartContext';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from 'axios';
 
 function Sidebar() {
 
-    const { isOpen, closeSidebar} = useContext(SideBarContext);
+    const { isOpen, closeSidebar } = useContext(SideBarContext);
     const { cart } = useContext(CartContext);
+    const stripePromise = loadStripe('pk_test_51MorNASD8JfEJOLq1uVEtu139o2CNC6rkYmW6xivpwiqSr9xWLoJ0U2tawBuej4sA36eXtLcofMGuyEE9WKnoTh400s57Tu5Hj')
+
+    const headers = {
+        'Authorization': `bearer 1525bff71f706fe270934c25d3e01d5e75285c8255e7e3bc342c562d3b19a4c752e283a8b6256ab58db97833e26a644e2487dfcc71dbadbb1271f5ceecdc8f476830f9fa5bbacd84cc8d2bc5d01ba460141124ae50f4e697908fef5b3106d820dda7fc4c61be9aaab40e7d2dbf865af7c4a4aa0c8504cb66fd4e3ede65481442`
+    };
 
     function subtotal() {
-        return cart.reduce(function(accu, curr) { return accu + curr.price * curr.quantity }, 0);
+        return cart.reduce(function (accu, curr) { return accu + curr.price * curr.quantity }, 0);
+    }
+
+    async function handlePayment() {
+        try {
+            var stripe = await stripePromise
+            var reqbody = {
+                products: cart.map(({id, quantity}) => ({
+                    id, quantity
+                }))
+            }
+            var res = await axios.post('https://ecom-strapi-server.onrender.com/api/orders', {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reqbody)
+            })
+            // var session = await res.json()
+            await stripe.redirectToCheckout({
+                sessionId: res.data.id
+            })
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -77,12 +107,12 @@ function Sidebar() {
                                             </div>
                                             <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
                                             <div className="mt-6">
-                                                <a
-                                                    href="#"
+                                                <button
+                                                    onClick={handlePayment}
                                                     className="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700"
                                                 >
                                                     Checkout
-                                                </a>
+                                                </button>
                                             </div>
                                             <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
                                                 <p>
