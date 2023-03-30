@@ -6,7 +6,7 @@ import fetcher from '../shared/fetcher';
 
 function ProductContainer() {
 
-    const { data, error, isLoading } = useSWR(`https://ecom-strapi-server.onrender.com/api/products`, fetcher);
+    const { data, error, isLoading } = useSWR(`http://localhost:1337/api/products`, fetcher);
 
     if (error) return <PageNotFound />;
     if (isLoading) return <Loader />;

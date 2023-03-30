@@ -60,7 +60,7 @@ function CartItem({ product }) {
                                             key={qty}
                                             value={qty}
                                             className={({ active, selected }) =>
-                                                `${active ? 'text-white bg-indigo-600' : 'text-gray-900'} ${selected ? 'font-medium' : 'font-normal'
+                                                `${active ? 'text-white bg-[#A4907C]' : 'text-gray-900'} ${selected ? 'font-medium' : 'font-normal'
                                                 } py-2 px-4 cursor-default`}
                                         >
                                             {qty}
@@ -74,7 +74,7 @@ function CartItem({ product }) {
                     <div className="flex">
                         <button
                             type="button"
-                            className="font-medium text-indigo-600 hover:text-indigo-500"
+                            className="font-medium text-[#A4907C]"
                             onClick={handleRemoveFromCart}
                         >
                             Remove
