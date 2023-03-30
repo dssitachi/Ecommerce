@@ -26,7 +26,7 @@ function Sidebar() {
                     id, quantity
                 }))
             }
-            var res = await axios.post('http://localhost:1337/api/orders', {
+            var res = await axios.post('https://ecom-strapi-server.onrender.com/api/orders', {
                 headers: {
                     'Content-Type': 'application/json',
                 },

@@ -9,7 +9,7 @@ import Loader from "../components/Loader";
 function ProductDetails() {
     const { addToCart } = useContext(CartContext);
     const { id } = useParams();
-    var { data, error, isLoading } = useSWR(`http://localhost:1337/api/products/${id}`, fetcher);
+    var { data, error, isLoading } = useSWR(`https://ecom-strapi-server.onrender.com/api/products/${id}`, fetcher);
 
     if (error) return <PageNotFound />;
 
