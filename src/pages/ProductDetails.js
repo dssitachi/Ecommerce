@@ -5,6 +5,8 @@ import useSWR from 'swr';
 import PageNotFound from "./PageNotFound";
 import fetcher from '../shared/fetcher';
 import Loader from "../components/Loader";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function ProductDetails() {
     const { addToCart } = useContext(CartContext);
@@ -19,6 +21,7 @@ function ProductDetails() {
 
     function handleClick() {
         addToCart(productData, 1);
+        toast.success('Product added to the cart!')
     }
 
     return (
@@ -41,6 +44,7 @@ function ProductDetails() {
                     </div>
                 </div>
             </div>
+            <ToastContainer autoClose={2000} />
         </div>
     )
 }
